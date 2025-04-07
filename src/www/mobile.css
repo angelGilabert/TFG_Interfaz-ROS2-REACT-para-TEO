@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+
+h1 {
+    color: white;
+}
+
+.bot_mobile {
+    width: 100%;
+    height: 25%;
+    font-size: 1.5rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: #09af7b;
+    filter: brightness(85%);
+}
+
+.modo_vel {
+    background-color: #007aff;
+}
+
+.presionado.modo_vel {
+    background-color: #34aadc;
+}
+
+.presionado {
+    background-color: #09af7b;
+    filter: brightness(100%);
+}
+
+.presionado #icon_up {
+    transform: rotate(-90deg) scale(0.7);
+}
+
+.presionado #icon_down {
+    transform: rotate(90deg) scale(0.7);
+}
+
+#icon_up {
+    width: 130px;
+    height: auto;
+    transform: rotate(-90deg);
+    transition: transform 0.2s ease-in-out;
+}
+
+#icon_down {
+    width: 130px;
+    height: auto;
+    transform: rotate(90deg);
+    transition: transform 0.2s ease-in-out;
+}
+
+@media screen and (orientation: landscape) {
+    body {
+        transform: rotate(90deg);
+        transform-origin: center center;
+        width: 100vh;
+        height: 100vw;
+        overflow-x: hidden;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+    }
+}
