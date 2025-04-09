@@ -6,8 +6,12 @@ import { useNavigate } from 'react-router-dom';
 export function Home_screen() {
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate("/Images");
+    const handleClick = (page) => {
+        if (page == 1) {
+            navigate("/Images");
+        } else {
+            navigate("/Force");
+        }
     };
 
 
@@ -18,8 +22,8 @@ export function Home_screen() {
             </div>
 
             <div className='div_iconos'>
-                <div class="item">1</div>
-                <div class="item">2</div>
+                <div class="item" onClick={() => handleClick(1)}>1</div>
+                <div class="item" onClick={() => handleClick(2)}>2</div>
                 <div class="item">3</div>
                 <div class="item">4</div>
                 <div class="item">5</div>

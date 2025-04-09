@@ -13,9 +13,14 @@ import { RightArm_screen } from './components/motor_control/rightArm/rightArm_sc
 import { LeftLeg_screen } from './components/motor_control/leftLeg/leftLeg_screen.jsx';
 import { RightLeg_screen } from './components/motor_control/rightLeg/rightLeg_screen.jsx';
 
+import { Video } from './components/VideoComponent.jsx';
+import { ForceTorque } from './components/ForceTorqueComponent.jsx';
+
 
 
 export function App() {
+
+  const { ros } = useContext(Ros2Context)
 
   const { isConnected } = useContext(Ros2Context)
 
@@ -35,6 +40,8 @@ export function App() {
         <Route path='/LeftLeg' element={<LeftLeg_screen />} />
         <Route path='/RightLeg' element={<RightLeg_screen />} />
         <Route path='/Trunk' element={<Trunk_screen />} />
+        <Route path='/Images' element={<Video ros={ros} />} />
+        <Route path='/Force' element={<ForceTorque ros={ros} />} />
       </Routes>
     </>
   )

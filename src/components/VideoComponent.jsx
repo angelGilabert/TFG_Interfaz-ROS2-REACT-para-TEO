@@ -1,9 +1,9 @@
-/*
+
 import React, { useState, useEffect } from 'react';
 
 import { Container, Row, Col, Dropdown } from 'react-bootstrap';
 
-function Video({ ros }) {
+export function Video({ ros }) {
 
     const [imageTopicNames, setImageTopicNames] = useState([]);
     const [msgImageTopicNames, setMsgImageTopicNames] = useState([]);
@@ -64,6 +64,3 @@ function Video({ ros }) {
         </Container>
     );
 }
-
-export default Video;
-*/

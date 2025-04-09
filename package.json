@@ -10,13 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-three/drei": "^10.0.4",
     "@react-three/fiber": "^9.1.0",
+    "bootstrap": "^5.3.5",
     "cors": "^2.8.5",
+    "dygraphs": "^2.2.1",
     "express": "^4.21.2",
     "qrcode.react": "^4.2.0",
     "rc-slider": "^11.1.8",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.30.0",
     "roslib": "^1.4.1",
