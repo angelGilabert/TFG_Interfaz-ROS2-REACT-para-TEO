@@ -72,3 +72,9 @@ h1 {
         translate: -50% -50%;
     }
 }
+
+img {
+    width: 100%;
+    max-width: 500px;
+    transform: rotate(90deg) scaleX(1);
+}

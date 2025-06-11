@@ -1,5 +1,5 @@
 import { Head } from './head_3d.jsx';
-import { Slider_angle } from '../../slider_angle.jsx';
+import { Slider_angle } from '../../elements/slider_angle.jsx';
 import { useState, useEffect, useContext } from 'react';
 import { Ros2Context } from "../../../context/RosContext.jsx"
 import { public_position_message, useRosMotorComunication, useRosMotorVelocity, useRosGetSetModeService } from "../../../logic/ros_logic.jsx"
@@ -46,7 +46,8 @@ export function Head_screen() {
     });
 
     const result_3 = useRosGetSetModeService({
-        ros: ros
+        ros: ros,
+        robot_extremity: "head"
     });
 
 

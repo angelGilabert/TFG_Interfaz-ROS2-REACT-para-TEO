@@ -4,7 +4,7 @@ import { useGLTF, OrbitControls } from "@react-three/drei";
 
 
 function Modelo_piernaIzq({ realAnglesLeftLeg, desiredAnglesLeftLeg, changing_value }) {
-    const { nodes } = useGLTF("../3d_models/teo_leftLeg.glb");
+    const { nodes } = useGLTF("../3d_models/teo3d.glb");
 
     const main_mat = useMemo(() => nodes["AxialLeftHip"].material.clone(), []);
     const main_mat_transparent = useMemo(() => {

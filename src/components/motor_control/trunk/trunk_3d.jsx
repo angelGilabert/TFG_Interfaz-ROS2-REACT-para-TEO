@@ -7,17 +7,17 @@ import { useGLTF, OrbitControls } from "@react-three/drei";
 function Tronco({ realAnglesTrunk, desiredAnglesTrunk, changing_value }) {
     const { nodes } = useGLTF("../3d_models/teo3d.glb");
 
-    const main_mat = useMemo(() => nodes["node001"].material.clone(), []);
+    const main_mat = useMemo(() => nodes["AxialNeck"].material.clone(), []);
     const main_mat_transparent = useMemo(() => {
-        const mat = nodes["node001"].material.clone();
+        const mat = nodes["AxialNeck"].material.clone();
         mat.transparent = true;
         mat.opacity = 0.4;
         return mat;
     }, []);
 
-    const second_mat = useMemo(() => nodes["node003"].material.clone(), []);
+    const second_mat = useMemo(() => nodes["FrontalNeck"].material.clone(), []);
     const second_mat_transparent = useMemo(() => {
-        const mat = nodes["node003"].material.clone();
+        const mat = nodes["FrontalNeck"].material.clone();
         mat.transparent = true;
         mat.opacity = 0.4;
         return mat;
@@ -25,7 +25,7 @@ function Tronco({ realAnglesTrunk, desiredAnglesTrunk, changing_value }) {
 
     const third_mat = useMemo(() => nodes["node016"].material.clone(), []);
     const third_mat_transparent = useMemo(() => {
-        const mat = nodes["node003"].material.clone();
+        const mat = nodes["node016"].material.clone();
         mat.transparent = true;
         mat.opacity = 0.4;
         return mat;
@@ -61,13 +61,13 @@ function Tronco({ realAnglesTrunk, desiredAnglesTrunk, changing_value }) {
                     />
                     <group position={[0, 0.435, 0]} rotation={[0, 0, 0]}>
                         <mesh
-                            geometry={nodes["node001"].geometry}
+                            geometry={nodes["AxialNeck"].geometry}
                             material={main_mat}
                             visible={!changing_value}
                         />
                         <group position={[0, 0.0325, 0]} rotation={[0, 0, 0]}>
                             <mesh
-                                geometry={nodes["node003"].geometry}
+                                geometry={nodes["FrontalNeck"].geometry}
                                 material={second_mat}
                                 visible={!changing_value}
                             />
@@ -91,12 +91,12 @@ function Tronco({ realAnglesTrunk, desiredAnglesTrunk, changing_value }) {
                     />
                     <group position={[0, 0.435, 0]} rotation={[0, 0, 0]}>
                         <mesh
-                            geometry={nodes["node001"].geometry}
+                            geometry={nodes["AxialNeck"].geometry}
                             material={main_mat_transparent}
                         />
                         <group position={[0, 0.0325, 0]} rotation={[0, 0, 0]}>
                             <mesh
-                                geometry={nodes["node003"].geometry}
+                                geometry={nodes["FrontalNeck"].geometry}
                                 material={second_mat_transparent}
                             />
                         </group>

@@ -9,6 +9,7 @@ export function Ros2Provider({ children }) {
 
     const [ros, setRos] = useState(null);
     const [isConnected, setIsConnected] = useState(false);
+    const [teoType, setTeoType] = useState("teoSim");
 
     useEffect(() => {
         // Crear una nueva instancia de ROS
@@ -43,7 +44,7 @@ export function Ros2Provider({ children }) {
 
     return (
         <Ros2Context.Provider value={{
-            ros, isConnected
+            ros, isConnected, teoType, setTeoType
         }}>
             {children}
         </Ros2Context.Provider>

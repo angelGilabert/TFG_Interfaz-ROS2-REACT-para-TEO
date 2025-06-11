@@ -1,0 +1,46 @@
+.switch-container {
+    position: relative;
+    width: 230px;
+    height: 40px;
+    background-color: #007bff;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    font-family: sans-serif;
+    cursor: pointer;
+    user-select: none;
+    border: 3px solid rgb(256, 256, 256);
+    margin-top: 5px;
+}
+
+.switch-option {
+    width: 50%;
+    text-align: center;
+    z-index: 2;
+    font-weight: 600;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.switch-option.active {
+    color: #007bff;
+}
+
+.switch-thumb {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(50% - 10px);
+    height: calc(100% - 10px);
+    background-color: white;
+    border-radius: 999px;
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+
+.switch-thumb.right {
+    transform: translateX(100%);
+    margin-left: 7px;
+}

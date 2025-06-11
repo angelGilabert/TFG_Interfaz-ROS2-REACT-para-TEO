@@ -1,5 +1,5 @@
 import { Left_leg } from './leftLeg_3d.jsx';
-import { Slider_angle } from '../../slider_angle.jsx';
+import { Slider_angle } from '../../elements/slider_angle.jsx';
 import { useState, useContext } from 'react';
 import { Ros2Context } from "../../../context/RosContext.jsx"
 import { public_position_message, useRosMotorComunication } from "../../../logic/ros_logic.jsx"

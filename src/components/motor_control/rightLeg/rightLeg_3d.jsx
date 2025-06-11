@@ -4,7 +4,7 @@ import { useGLTF, OrbitControls } from "@react-three/drei";
 
 
 function Modelo_piernaDer({ realAnglesRightLeg, desiredAnglesRightLeg, changing_value }) {
-    const { nodes } = useGLTF("../3d_models/teo_rightLeg.glb");
+    const { nodes } = useGLTF("../3d_models/teo3d.glb");
 
     const main_mat = useMemo(() => nodes["AxialRightHip"].material.clone(), []);
     const main_mat_transparent = useMemo(() => {

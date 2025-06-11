@@ -4,7 +4,7 @@ import { useGLTF, OrbitControls } from "@react-three/drei";
 
 
 function Modelo_cabeza({ realAnglesHead, desiredAnglesHead, changing_value, movil_connected }) {
-    const { nodes } = useGLTF("../3d_models/teo_head.glb");
+    const { nodes } = useGLTF("../3d_models/teo3d.glb");
 
     const main_mat = useMemo(() => nodes["AxialNeck"].material.clone(), []);
     const main_mat_transparent = useMemo(() => {
