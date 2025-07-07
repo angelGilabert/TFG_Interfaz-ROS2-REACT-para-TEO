@@ -4,7 +4,7 @@ import "rc-slider/assets/index.css";
 import { CustomeInput } from "./custome_input";
 
 
-export function Slider_angle({ name, number_joint, angles, setAngles, max_angle, min_angle, setChangingValue = null, isDisabled = false, isMeter = false }) {
+export function Slider_angle({ name, number_joint, angles, setAngles, max_angle, min_angle, setChangingValue = null, isDisabled = false, isMeter = false, height = '80px' }) {
 
     const handleChangeAngle = (value) => {
         if (setChangingValue) {
@@ -26,7 +26,7 @@ export function Slider_angle({ name, number_joint, angles, setAngles, max_angle,
 
 
     return (
-        <section className="slider_section">
+        <section className="slider_section" style={{ height: height }} >
 
             <div id='name_comp'>
                 <p> {name} </p>

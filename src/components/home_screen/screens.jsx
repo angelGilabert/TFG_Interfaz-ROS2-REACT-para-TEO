@@ -35,6 +35,7 @@ export function Home_screen() {
                     }}>
                         <img
                             src='src/assets/camara.png'
+                            alt="Camara"
                         />
                     </button>
 
@@ -57,6 +58,7 @@ export function Home_screen() {
                     }}>
                         <img
                             src='src/assets/fuerzapar.png'
+                            alt="Fuerza par"
                         />
                     </button>
 
@@ -79,6 +81,7 @@ export function Home_screen() {
                     }}>
                         <img
                             src='src/assets/modo.png'
+                            alt="Cambio de modo"
                         />
                     </button>
 
@@ -101,6 +104,7 @@ export function Home_screen() {
                     }}>
                         <img
                             src='src/assets/imu.png'
+                            alt="IMU"
                         />
                     </button>
                     <h1 style={{

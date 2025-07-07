@@ -45,18 +45,18 @@ function Modelo_brazoDer({ realAnglesRightArm, desiredAnglesRightArm, changing_v
         <group>
             {/* Mallas del pecho */}
             <mesh
-                position={[0, -0.005, -0.11292]}
+                position={[0, -0.005, -0.14292]}
                 geometry={nodes["node016"].geometry}
                 material={nodes["node016"].material.clone()}
             />
             <mesh
-                position={[0, -0.005, -0.11292]}
+                position={[0, -0.005, -0.14292]}
                 geometry={nodes["node015"].geometry}
                 material={nodes["node015"].material.clone()}
             />
 
             {/* Brazo real */}
-            <group position={[0, 0.3, 0.15]} rotation={[0, 0, -realAnglesRightArm[0]]}>
+            <group position={[0, 0.3, 0.12]} rotation={[0, 0, -realAnglesRightArm[0]]}>
                 <mesh
                     geometry={nodes["FrontalRightShoulder"].geometry}
                     material={main_mat}
@@ -92,6 +92,11 @@ function Modelo_brazoDer({ realAnglesRightArm, desiredAnglesRightArm, changing_v
                                         material={second_mat}
                                         visible={!changing_value}
                                     />
+                                    <mesh
+                                        geometry={nodes["Wrist"].geometry}
+                                        material={second_mat}
+                                        visible={!changing_value}
+                                    />
                                 </group>
                             </group>
                         </group>
@@ -100,7 +105,7 @@ function Modelo_brazoDer({ realAnglesRightArm, desiredAnglesRightArm, changing_v
             </group>
 
             {/* Brazo fantasma (posición donde queremos mover) */}
-            <group position={[0, 0.3, 0.15]} rotation={[0, 0, -desiredAnglesRightArm[0]]}>
+            <group position={[0, 0.3, 0.12]} rotation={[0, 0, -desiredAnglesRightArm[0]]}>
                 <mesh
                     geometry={nodes["FrontalRightShoulder"].geometry}
                     material={main_mat_transparent}
@@ -133,6 +138,11 @@ function Modelo_brazoDer({ realAnglesRightArm, desiredAnglesRightArm, changing_v
                                 <group position={[0, 0, 0]} rotation={[0, 0, -desiredAnglesRightArm[5]]}>
                                     <mesh
                                         geometry={nodes["FrontalRightWrist"].geometry}
+                                        material={second_mat_transparent}
+                                        visible={isDirecta}
+                                    />
+                                    <mesh
+                                        geometry={nodes["Wrist"].geometry}
                                         material={second_mat_transparent}
                                         visible={isDirecta}
                                     />

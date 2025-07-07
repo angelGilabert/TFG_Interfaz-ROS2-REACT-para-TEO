@@ -21,6 +21,8 @@ export function LeftArm_screen() {
 
     const [changing_value, setChangingValue] = useState(false)
 
+    const [movj_function, setMovjFunction] = useState(true)
+
     const { ros } = useContext(Ros2Context)
 
     const positionLeftArm = useRosMotorComunication({
@@ -63,7 +65,7 @@ export function LeftArm_screen() {
 
             <div id='leftarm_sliders' className='div_sliders'>
                 <div id='leftarm_switch' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <SwitchButton state={isDirecta} setState={setIsDirecta} />
+                    <SwitchButton state={isDirecta} setState={setIsDirecta} left_word={'Joint'} right_word={'Cartesian'} />
                 </div>
                 {isDirecta ? (
                     <>
@@ -76,28 +78,45 @@ export function LeftArm_screen() {
                     </>
                 ) : (
                     <>
-                        <Slider_angle name='Posición eje X' number_joint={0} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-0.73} max_angle={0.73} isMeter={true} />
-                        <Slider_angle name='Posición eje Y' number_joint={1} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-0.19} max_angle={1.07} isMeter={true} />
-                        <Slider_angle name='Posición eje Z' number_joint={2} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-0.23} max_angle={1.03} isMeter={true} />
-                        <Slider_angle name='Ángulo eje X' number_joint={3} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-180} max_angle={180} />
-                        <Slider_angle name='Ángulo eje Y' number_joint={4} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-180} max_angle={180} />
-                        <Slider_angle name='Ángulo eje Z' number_joint={5} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-180} max_angle={180} />
+                        <Slider_angle name={<>Posición <span style={{ color: 'red' }}>eje X</span></>} number_joint={0} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-0.73} max_angle={0.73} isMeter={true} />
+                        <Slider_angle name={<>Posición <span style={{ color: 'green' }}> eje Y</span></>} number_joint={1} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-0.19} max_angle={1.07} isMeter={true} />
+                        <Slider_angle name={<>Posición <span style={{ color: 'blue' }}>eje Z</span></>} number_joint={2} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-0.23} max_angle={1.03} isMeter={true} />
+                        <Slider_angle name={<>Ángulo <span style={{ color: 'red' }}>eje X</span></>} number_joint={3} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-180} max_angle={180} />
+                        <Slider_angle name={<>Ángulo <span style={{ color: 'green' }}>eje Y</span></>} number_joint={4} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-180} max_angle={180} />
+                        <Slider_angle name={<>Ángulo <span style={{ color: 'blue' }}>eje Z</span></>} number_joint={5} angles={inverseKinVals} setAngles={setInverseKinVals} min_angle={-180} max_angle={180} />
                     </>
                 )}
 
-                <div className='cont_play_button'>
-                    <button id='leftarm_play' className="play_button"
-                        onClick={() => {
-                            if (isDirecta) {
-                                console.log(desiredAnglesLeftArm)
-                                public_position_message({ positions: desiredAnglesLeftArm, topic: positionLeftArm })
-                            } else {
-                                console.log(inverseKinVals)
-                                public_mov({ pose_orient: inverseKinVals, topic: movjoint })
-                            }
-                        }}>
-                        Move
-                    </button>
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                    <div className='cont_play_button'>
+
+                        {!isDirecta &&
+                            <div id='movj_switch' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '140px', height: '30px' }}>
+                                <SwitchButton state={movj_function} setState={setMovjFunction} left_word={'movj'} right_word={'movl'} fontSize='15px' />
+                            </div>
+                        }
+
+
+                        <button id='leftarm_play' className="play_button" style={{ marginLeft: '15px' }}
+                            onClick={() => {
+                                if (isDirecta) {
+                                    console.log(desiredAnglesLeftArm)
+                                    public_position_message({ positions: desiredAnglesLeftArm, topic: positionLeftArm })
+                                } else {
+                                    if (movj_function) {
+                                        public_mov({ pose_orient: inverseKinVals, topic: movjoint })
+                                    } else {
+                                        public_mov({ pose_orient: inverseKinVals, topic: movlinear })
+                                    }
+
+                                }
+                            }}>
+                            Move
+                        </button>
+
+                    </div>
                 </div>
             </div>
         </main>

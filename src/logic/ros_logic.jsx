@@ -40,8 +40,30 @@ export function public_mov({ pose_orient, topic }) {
         data: pose_orient
     });
 
+    console.log(topic)
     topic.publish(mensaje);
 }
+
+// Funcion para publicar en topic de teleoperacion
+export function public_teleop_pose({ pose_orient, topic }) {
+
+    const mensaje = new ROSLIB.Message({
+        position: {
+            x: pose_orient[0],
+            y: pose_orient[1],
+            z: pose_orient[2]
+        },
+        orientation: {
+            x: pose_orient[4],
+            y: pose_orient[5],
+            z: pose_orient[6],
+            w: pose_orient[3]
+        }
+    });
+
+    topic.publish(mensaje);
+}
+
 
 
 // Llamada para cambiar el modo de una articulación/es
@@ -106,7 +128,36 @@ export function call_service_getModes({ service }) {
 }
 
 
-export function useRosMotorComunication({ ros, robot_extremity, setRealAngles, setDesiredAngles }) {
+
+export function call_service_set_preset_streaming({ ros, preset_streaming }) {
+    const setParametersClient = new ROSLIB.Service({
+        ros: ros,
+        name: '/rightArm/set_parameters',
+        serviceType: 'rcl_interfaces/srv/SetParameters'
+    });
+
+    // Crear la peticion
+    const request = new ROSLIB.ServiceRequest({
+        parameters: [
+            {
+                name: 'preset_streaming_cmd',
+                value: {
+                    type: 4,            // string
+                    string_value: preset_streaming
+                }
+            }
+        ]
+    });
+
+    setParametersClient.callService(request, function (result) {
+        console.log(preset_streaming);
+        console.log('Resultado:', result);
+    });
+}
+
+
+
+export function useRosMotorComunication({ ros, robot_extremity, setRealAngles, setDesiredAngles = null }) {
     const firstMessage = useRef(true);
     const topic_position = useRef(null);
     const { teoType } = useContext(Ros2Context);
@@ -133,8 +184,9 @@ export function useRosMotorComunication({ ros, robot_extremity, setRealAngles, s
                 setRealAngles(msg.position.map(val => parseFloat(val.toFixed(3))));
 
                 if (firstMessage.current) {
-                    setDesiredAngles(msg.position.map(val => parseFloat(val.toFixed(3))));
                     firstMessage.current = false;
+                    if (setDesiredAngles !== null)
+                        setDesiredAngles(msg.position.map(val => parseFloat(val.toFixed(3))));
                 }
 
                 lastExecutionTime = currentTime;
@@ -201,7 +253,7 @@ export function get_service({ ros, teoType, robot_extremity, service, serv_name,
 
 
 // Suscribirse a topics de cinematica inversa
-export function useRosInverseKinematics({ ros, robot_extremity, setEndArmPos, setEndArmOri }) {
+export function useRosInverseKinematics({ ros, robot_extremity, setEndArmPos, setEndArmOri, setEndReal = null }) {
     const firstMessage = useRef(true);
     const topic_movjoint = useRef(null);
     const topic_movlinear = useRef(null);
@@ -226,6 +278,10 @@ export function useRosInverseKinematics({ ros, robot_extremity, setEndArmPos, se
                 const y = parseFloat(msg.pose.position.y.toFixed(2));
                 const z = parseFloat(msg.pose.position.z.toFixed(2));
                 setEndArmPos([x, y, z]);
+
+                if (setEndReal) {
+                    setEndReal([msg.pose.position.x.toFixed(4), msg.pose.position.y.toFixed(4), msg.pose.position.z.toFixed(4)])
+                }
 
                 const quaternion = new THREE.Quaternion(msg.pose.orientation.x, msg.pose.orientation.z, -msg.pose.orientation.y, msg.pose.orientation.w);
 
@@ -258,39 +314,6 @@ export function useRosInverseKinematics({ ros, robot_extremity, setEndArmPos, se
     }, []);
 
     return [topic_movjoint.current, topic_movlinear.current];
-}
-
-// Suscribirse al topic de state para obtener posición real brazo derecho
-export function useRosMotorState({ ros, robot_extremity, setRealAngles }) {
-    const { teoType } = useContext(Ros2Context);
-    let lastExecutionTime = 0;
-
-    let topic_state = null;
-
-
-    useEffect(() => {
-
-        // Suscribirse al topic con el tipo de mensaje yarp_control_msgs/msg/JoinState
-        topic_state = new ROSLIB.Topic({
-            ros: ros,
-            name: `/${teoType}/${robot_extremity}/state`,        // Nombre del topico
-            messageType: "sensor_msgs/msg/JointState",
-        });
-
-        // Suscribirse y manejar los mensajes recibidos
-        topic_state.subscribe((msg) => {
-            const currentTime = Date.now();
-
-            if (currentTime - lastExecutionTime >= 50) {
-                setRealAngles(msg.position.map(val => parseFloat(val.toFixed(3))));
-                lastExecutionTime = currentTime;
-            }
-        });
-
-        return () => {
-            topic_state.unsubscribe();
-        }
-    }, [teoType]);
 }
 
 
@@ -347,5 +370,64 @@ export function useImuSuscription({ ros, setImuvel, setImuacel, setImuangles }) 
 }
 
 
+export function useRosStreamingpose({ ros }) {
+    const { teoType } = useContext(Ros2Context);
+    const topic_streaming = useRef(null)
+
+    useEffect(() => {
+        topic_streaming.current = new ROSLIB.Topic({
+            ros: ros,
+            name: `/rightArm/command/pose`,
+            serviceType: 'geometry_msgs/msg/Pose'
+        });
+    }, []);
+
+    return topic_streaming.current;
+}
 
 
+export function useForceTorqueSuscription({ ros, topic_selected, refresh, setForceTorquevalues, playing }) {
+
+    let lastExecutionTime = 0;
+
+    let topic_ft = null;
+
+
+    useEffect(() => {
+
+        const period = 1000 / Number(refresh);
+
+        // Suscribirse al topic con el tipo de mensaje sensor_msgs/msg/Imu
+        topic_ft = new ROSLIB.Topic({
+            ros: ros,
+            name: `${topic_selected}`,   // Nombre del topico
+            messageType: "geometry_msgs/msg/WrenchStamped",
+        });
+
+        // Manejar los mensajes recibidos
+        topic_ft.subscribe((msg) => {
+            const currentTime = Date.now();
+
+            if (currentTime - lastExecutionTime >= period) {
+
+                const fx = msg.wrench.force.x;
+                const fy = msg.wrench.force.y;
+                const fz = msg.wrench.force.z;
+
+                const tx = msg.wrench.torque.x;
+                const ty = msg.wrench.torque.y;
+                const tz = msg.wrench.torque.z;
+
+                if (playing) {
+                    setForceTorquevalues([fx, fy, fz, tx, ty, tz])
+                }
+
+                lastExecutionTime = currentTime;
+            }
+        });
+
+        return () => {
+            topic_ft.unsubscribe();
+        }
+    }, [topic_selected, refresh, playing]);
+}

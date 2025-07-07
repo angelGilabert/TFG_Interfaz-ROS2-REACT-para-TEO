@@ -17,7 +17,7 @@ import { RightLeg_screen } from './components/motor_control/rightLeg/rightLeg_sc
 import { Header } from './components/home_screen/header.jsx';
 
 import { Video } from './components/funcionalities/VideoComponent.jsx';
-import { ForceTorque } from './components/funcionalities/ForceTorqueComponent.jsx';
+import { ForceTorque } from './components/funcionalities/ForceTorque.jsx';
 import { ModeControl } from './components/funcionalities/mode_control.jsx';
 import { Teleop_screen } from './components/funcionalities/teleoperation_screen.jsx';
 import { Imu } from './components/funcionalities/Imu.jsx';
@@ -111,7 +111,7 @@ function getStepsByPath(pathname) {
       return [
         {
           selector: '#header-conexion',
-          content: 'Indica si ha sido posible conectarse al rosbridge en LeftArm',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
         },
         {
           selector: '#header-teosim',
@@ -150,7 +150,7 @@ function getStepsByPath(pathname) {
       return [
         {
           selector: '#header-conexion',
-          content: 'Indica si ha sido posible conectarse al rosbridge en LeftArm',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
         },
         {
           selector: '#header-teosim',
@@ -183,6 +183,209 @@ function getStepsByPath(pathname) {
         {
           selector: '#rightarm_play',
           content: 'Pulsa para mover brazo a la posición deseada',
+        }
+      ];
+    case '/Head':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge en LeftArm',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#head_3d',
+          content: 'Puedes observar el estado actual real dela cabeza y el estado deseado que puedes modificar con los sliders',
+        },
+        {
+          selector: '#head_sliders',
+          content: 'Usa los sliders para elegir la posición de la cabeza que quieras',
+        },
+        {
+          selector: '#head_play',
+          content: 'Pulsa para mover la cabeza a la posición deseada',
+        },
+        {
+          selector: '#head_qr',
+          content: 'Escanea para teleoperar desde movil',
+        }
+      ];
+    case '/Trunk':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#trunk_3d',
+          content: 'Puedes observar el estado actual real del tronco y el estado deseado que puedes modificar con los sliders',
+        },
+        {
+          selector: '#trunk_sliders',
+          content: 'Usa los sliders para elegir la posición del tronco que quieras',
+        },
+        {
+          selector: '#trunk_play',
+          content: 'Pulsa para mover el tronco a la posición deseada',
+        }
+      ];
+    case '/LeftLeg':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#leftleg_3d',
+          content: 'Puedes observar el estado actual real de la pierna y el estado deseado que puedes modificar con los sliders',
+        },
+        {
+          selector: '#leftleg_sliders',
+          content: 'Usa los sliders para elegir la posición de la pierna que quieras',
+        },
+        {
+          selector: '#leftleg_play',
+          content: 'Pulsa para mover la pierna a la posición deseada',
+        }
+      ];
+    case '/RightLeg':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#rightleg_3d',
+          content: 'Puedes observar el estado actual real de la pierna y el estado deseado que puedes modificar con los sliders',
+        },
+        {
+          selector: '#rightleg_sliders',
+          content: 'Usa los sliders para elegir la posición de la pierna que quieras',
+        },
+        {
+          selector: '#rightleg_play',
+          content: 'Pulsa para mover la pierna a la posición deseada',
+        }
+      ];
+    case '/Images':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#dropdown',
+          content: 'Selecciona imagen que desees en el desplegable',
+        }
+      ];
+    case '/Force':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#options',
+          content: 'Selecciona el sensor, la velocidad de monitorización o pausala',
+        },
+        {
+          selector: '#fuerzas',
+          content: 'Fuerza medida en cada eje',
+        },
+        {
+          selector: '#torques',
+          content: 'Torque medido en cada eje',
+        }
+      ];
+    case '/ModeControl':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#extremidad',
+          content: 'Selecciona cualquier extremidad',
+        },
+        {
+          selector: '#modotodo',
+          content: 'Cambia de modo a toda la articulación',
+        },
+        {
+          selector: '#arts',
+          content: 'Muestra todas las articulaciones de la extremidad, se puede cambiar de modo por separado',
+        }
+      ];
+    case '/Imu':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#vel',
+          content: 'Muestra la velocidad de cada eje',
+        },
+        {
+          selector: '#acel',
+          content: 'Muestra la aceleración de cada eje',
+        },
+        {
+          selector: '#orient',
+          content: 'Muestra la orientación de cada eje',
+        }
+      ];
+    case '/Teleop':
+      return [
+        {
+          selector: '#header-conexion',
+          content: 'Indica si ha sido posible conectarse al rosbridge',
+        },
+        {
+          selector: '#header-teosim',
+          content: 'Puedes cambiar el estado según si quieres controlar al Teo real o al modelo en Gazebo',
+        },
+        {
+          selector: '#rightarm_pos',
+          content: 'Muestra la posicion y orientación del extremo del brazo con respecto al TCP',
+        },
+        {
+          selector: '#modelo',
+          content: 'Muestra modelo del brazo',
+        },
+        {
+          selector: '#qr',
+          content: 'Escanea para empezar a teleoperar',
         }
       ];
   }

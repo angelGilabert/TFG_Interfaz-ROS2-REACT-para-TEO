@@ -19,6 +19,8 @@ export function RightArm_screen() {
 
     const [changing_value, setChangingValue] = useState(false)
 
+    const [movj_function, setMovjFunction] = useState(true)
+
     const { ros } = useContext(Ros2Context)
 
 
@@ -43,17 +45,17 @@ export function RightArm_screen() {
                 <Right_arm realAnglesRightArm={realAnglesRightArm} desiredAnglesRightArm={desiredAnglesRightArm} changing_value={changing_value} inverseKinVals={inverseKinVals} isDirecta={isDirecta} />
 
                 <div id='rightarm_pos' style={{
-                    position: 'absolute', top: '75%', left: '10%', width: '250px', color: 'white', backgroundColor: 'rgba(0,0,0,0.5)', padding: '5px', borderRadius: '5px', zIndex: 10
+                    position: 'absolute', top: '75%', left: '2%', width: '150px', color: 'white', backgroundColor: 'rgba(0,0,0,0.5)', padding: '5px', borderRadius: '5px', zIndex: 10
                 }}>
-                    Posicion extremo del brazo:
+                    TCP Position:
                     <p> X: {endArmPos[0]} m</p>
                     <p> Y: {endArmPos[1]} m</p>
                     <p> Z: {endArmPos[2]} m</p>
                 </div>
                 <div id='rightarm_orient' style={{
-                    position: 'absolute', top: '75%', left: '50%', width: '250px', color: 'white', backgroundColor: 'rgba(0,0,0,0.5)', padding: '5px', borderRadius: '5px', zIndex: 10
+                    position: 'absolute', top: '75%', right: '2%', width: '190', color: 'white', backgroundColor: 'rgba(0,0,0,0.5)', padding: '5px', borderRadius: '5px', zIndex: 10
                 }}>
-                    Ángulo extremo del brazo:
+                    TCP orientation (XYZ):
                     <p> X: {endArmOri[0]} °</p>
                     <p> Y: {endArmOri[1]} °</p>
                     <p> Z: {endArmOri[2]} °</p>
@@ -62,7 +64,7 @@ export function RightArm_screen() {
 
             <div id='rightarm_sliders' className='div_sliders'>
                 <div id='rightarm_switch' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <SwitchButton state={isDirecta} setState={setIsDirecta} />
+                    <SwitchButton state={isDirecta} setState={setIsDirecta} left_word={'Joint'} right_word={'Cartesian'} />
                 </div>
                 {isDirecta ? (
                     <>
@@ -84,17 +86,34 @@ export function RightArm_screen() {
                     </>
                 )}
 
-                <div className='cont_play_button'>
-                    <button id='rightarm_play' className="play_button"
-                        onClick={() => {
-                            if (isDirecta) {
-                                public_position_message({ positions: desiredAnglesRightArm, topic: positionRightArm })
-                            } else {
-                                public_mov({ pose_orient: inverseKinVals, topic: movjoint })
-                            }
-                        }}>
-                        Play
-                    </button>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+
+                    <div className='cont_play_button'>
+
+                        {!isDirecta &&
+                            <div id='movj_switch' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '140px', height: '30px' }}>
+                                <SwitchButton state={movj_function} setState={setMovjFunction} left_word={'movj'} right_word={'movl'} fontSize='15px' />
+                            </div>
+                        }
+
+                        <button id='rightarm_play' className="play_button" style={{ marginLeft: '15px' }}
+                            onClick={() => {
+                                if (isDirecta) {
+                                    console.log(desiredAnglesRightArm)
+                                    public_position_message({ positions: desiredAnglesRightArm, topic: positionRightArm })
+                                } else {
+                                    if (movj_function) {
+                                        public_mov({ pose_orient: inverseKinVals, topic: movjoint })
+                                    } else {
+                                        public_mov({ pose_orient: inverseKinVals, topic: movlinear })
+                                    }
+
+                                }
+                            }}>
+                            Move
+                        </button>
+
+                    </div>
                 </div>
             </div>
         </main>

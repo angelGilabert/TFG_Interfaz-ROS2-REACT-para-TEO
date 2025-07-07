@@ -75,7 +75,7 @@ export function Movil_comp({ movil_connected, gyro_movil, activo_pos, setActivoP
 
     if (!movil_connected) {
         return (
-            <div style={{ height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div id='head_qr' style={{ height: '400px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <QRCodeSVG
                     value="localhost:3002/mobile"
                     size={250}

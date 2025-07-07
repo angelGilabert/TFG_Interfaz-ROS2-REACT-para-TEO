@@ -47,19 +47,21 @@ export const Realtimechart = props => {
     // The following variables illustrate how a series could be updated.
     const series1 = useRef(null);
 
+    const lastTimeRef = useRef(performance.now());
     const lastSecond = useRef(1);
 
-    // The purpose of this effect is purely to show how a series could
-    // be updated using the `reference` passed to the `Series` component.
     useEffect(() => {
         if (series1.current === null) {
             return;
         }
 
-        lastSecond.current += 0.5
+        const now = performance.now();
+        const delta = (now - lastTimeRef.current) / 1000.0;
+        lastSecond.current += delta;
+        lastTimeRef.current = now;
 
         const next = {
-            time: lastSecond.current, // tiempo en segundos (Unix timestamp)
+            time: Number(lastSecond.current.toFixed(1)),
             value: var_eje_x,
         };
 
@@ -95,7 +97,7 @@ export function Chart(props) {      // CRea contenedor que contendrá el gráfic
     const [container, setContainer] = useState(false);
     const handleRef = useCallback(ref => setContainer(ref), []);
     return (
-        <div ref={handleRef} style={{ width: '450px' }}>
+        <div ref={handleRef} style={{ width: '350px' }}>
             {container && <ChartContainer {...props} container={container} />}
         </div>
     );

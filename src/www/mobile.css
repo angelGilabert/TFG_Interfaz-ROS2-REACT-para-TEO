@@ -32,6 +32,10 @@ h1 {
     background-color: #34aadc;
 }
 
+.presionado.modo_teleop {
+    background-color: #34aadc;
+}
+
 .presionado {
     background-color: #09af7b;
     filter: brightness(100%);

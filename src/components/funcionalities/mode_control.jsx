@@ -9,7 +9,7 @@ export function ModeControl() {
 
     const [selectedExtremitry, setSelectedExtremitry] = useState("head")
 
-    const [extremity_mode, setExtremity_mode] = useState("POSITION")
+    const [extremity_mode, setExtremity_mode] = useState("MODO")
 
     const [posiblesModes, setPosiblesModes] = useState([])
 
@@ -28,7 +28,6 @@ export function ModeControl() {
     const serv_get_modes = useRef(null)
 
 
-    //! Se puede refactorizar
     const fetchAvailableModes = async () => {
         try {
             // Espera a que la promesa se resuelva
@@ -97,11 +96,16 @@ export function ModeControl() {
 
     return (
         <div>
-            <div>
-                <CustomDropdown actual_state={selectedExtremitry} setState={setSelectedExtremitry} states={["head", "leftArm", "rightArm", "trunk", "leftLeg", "rightLeg"]} name_states={null}
+            <div id='extremidad' style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: '25px'
+            }} >
+                <CustomDropdown actual_state={selectedExtremitry} setState={setSelectedExtremitry} states={["head", "leftArm", "rightArm", "trunk", "leftLeg", "rightLeg"]} name_states={null} padding='0px'
                     style={{
                         padding: '10px 20px',
-                        fontSize: '16px',
+                        fontSize: '18px',
                         borderRadius: '6px',
                         border: '1px solid #ccc',
                         cursor: 'pointer',
@@ -115,7 +119,9 @@ export function ModeControl() {
                     }} />
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+
+
+            <div id='modotodo' style={{ display: 'flex', alignItems: 'center' }}>
                 <p> Asigna el modo a toda la extremidad</p>
                 <CustomDropdown actual_state={extremity_mode} setState={changeAllMode} states={posiblesModes} name_states={null}
                     style={{
@@ -134,27 +140,41 @@ export function ModeControl() {
                     }} />
             </div>
 
-            {extremity_joints.map((joint, index) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
-                    <p> {joint}</p>
-                    <CustomDropdown actual_state={joints_modes[index]} setState={changeMode} states={posiblesModes} name_states={null} index={index}
-                        style={{
-                            padding: '10px 20px',
-                            fontSize: '16px',
-                            borderRadius: '6px',
-                            border: '1px solid #ccc',
-                            cursor: 'pointer',
-                            width: '200px',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }} />
-                </div>
-            ))}
 
-        </div>
+
+
+            <div id='arts'
+                style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(2, 1fr)',
+                    gridTemplateRows: 'repeat(3, auto)',
+                    gridAutoFlow: 'column',
+                    gap: '10px',
+                }}
+            >
+                {extremity_joints.map((joint, index) => (
+                    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+                        <p style={{ width: '200px' }}> {joint}</p>
+                        <CustomDropdown actual_state={joints_modes[index]} setState={changeMode} states={posiblesModes} name_states={null} index={index}
+                            style={{
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                borderRadius: '6px',
+                                border: '1px solid #ccc',
+                                cursor: 'pointer',
+                                width: '200px',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                            }} />
+                    </div>
+                ))}
+            </div>
+
+
+        </div >
     )
 }

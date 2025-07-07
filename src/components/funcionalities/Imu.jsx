@@ -22,7 +22,7 @@ export function Imu() {
 
     return (
         <main style={{ display: 'block', backgroundColor: '#DDEEFF' }}>
-            <div style={{ display: 'flex' }}>
+            <div id='vel' style={{ display: 'flex' }}>
                 <div style={{ marginLeft: '35px' }}>
                     <p style={{ marginBottom: '7px' }}> Velocidad angular X </p>
                     <Realtimechart var_eje_x={imu_vel[0]} max_range={0.2} min_range={-0.2}
@@ -39,32 +39,32 @@ export function Imu() {
                 </div>
                 <div style={{ marginLeft: '35px' }}>
                     <p style={{ marginBottom: '7px' }}> Velocidad angular Z </p>
-                    <Realtimechart var_eje_x={imu_vel[1]} max_range={0.2} min_range={-0.2} />
+                    <Realtimechart var_eje_x={imu_vel[2]} max_range={0.2} min_range={-0.2} />
                 </div>
             </div>
 
-            <div style={{ marginTop: '20px', display: 'flex' }}>
+            <div id='acel' style={{ marginTop: '20px', display: 'flex' }}>
                 <div style={{ marginLeft: '35px' }}>
                     <p style={{ marginBottom: '7px' }}> Aceleración lineal X </p>
-                    <Realtimechart var_eje_x={imu_acel[0]} max_range={8} min_range={-0.2}
+                    <Realtimechart var_eje_x={imu_acel[0]} max_range={8} min_range={-8}
                         colors={{
                             lineColor: '#f74c3e' //rojo
                         }} />
                 </div>
                 <div style={{ marginLeft: '35px' }}>
                     <p style={{ marginBottom: '7px' }}> Aceleración lineal Y </p>
-                    <Realtimechart var_eje_x={imu_acel[1]} max_range={8} min_range={-0.2}
+                    <Realtimechart var_eje_x={imu_acel[1]} max_range={8} min_range={-8}
                         colors={{
                             lineColor: '#28A745' //verde
                         }} />
                 </div>
                 <div style={{ marginLeft: '35px' }}>
                     <p style={{ marginBottom: '7px' }}> Aceleración lineal Z </p>
-                    <Realtimechart var_eje_x={imu_acel[1]} max_range={8} min_range={-0.2} />
+                    <Realtimechart var_eje_x={imu_acel[2]} max_range={8} min_range={-8} />
                 </div>
             </div>
 
-            <div style={{ height: '190px', display: 'flex', justifyContent: 'center' }}>
+            <div id='orient' style={{ height: '190px', display: 'flex', justifyContent: 'center' }}>
 
                 <div style={{ height: '190px', display: 'flex' }}>
                     <Imu3d angles={imu_angles} />

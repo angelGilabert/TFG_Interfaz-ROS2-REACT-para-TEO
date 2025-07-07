@@ -77,16 +77,16 @@ export function Head_screen() {
 
     return (
         <main>
-            <div className='cont_3dmodel'>
+            <div id='head_3d' className='cont_3dmodel'>
                 <Head realAnglesHead={realAnglesHead} desiredAnglesHead={desiredAnglesHead} changing_value={changing_value} movil_connected={movil_connected} />
             </div>
-            <div className='div_sliders'>
-                <Slider_angle name='Axial Neck' number_joint={0} angles={desiredAnglesHead} setAngles={setDesiredAnglesHead} min_angle={-60} max_angle={60} setChangingValue={setChangingValue} isDisabled={disabled_sliders[0]} />
-                <Slider_angle name='Frontal Neck' number_joint={1} angles={desiredAnglesHead} setAngles={setDesiredAnglesHead} min_angle={-10} max_angle={10} setChangingValue={setChangingValue} isDisabled={disabled_sliders[1]} />
+            <div id='head_sliders' className='div_sliders'>
+                <Slider_angle name='Axial Neck' number_joint={0} angles={desiredAnglesHead} setAngles={setDesiredAnglesHead} min_angle={-60} max_angle={60} setChangingValue={setChangingValue} isDisabled={disabled_sliders[0]} height={'100px'} />
+                <Slider_angle name='Frontal Neck' number_joint={1} angles={desiredAnglesHead} setAngles={setDesiredAnglesHead} min_angle={-10} max_angle={10} setChangingValue={setChangingValue} isDisabled={disabled_sliders[1]} height={'100px'} />
 
-                <div className='cont_play_button'>
+                <div id='head_play' className='cont_play_button'>
                     <button className="play_button" onClick={() => public_position_message({ positions: desiredAnglesHead, topic: positionHead })}>
-                        Play
+                        Move
                     </button>
                 </div>
 

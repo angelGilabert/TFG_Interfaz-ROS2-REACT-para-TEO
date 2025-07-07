@@ -4,7 +4,7 @@ import 'rc-dropdown/assets/index.css';
 import 'rc-menu/assets/index.css';
 
 
-export function CustomDropdown({ actual_state, setState, states, name_states = null, index = null, style = {} }) {
+export function CustomDropdown({ actual_state, setState, states, name_states = null, index = null, style = {}, padding = '50px' }) {
 
     const handleSelect = ({ key }) => {
         if (index !== null) {
@@ -17,7 +17,7 @@ export function CustomDropdown({ actual_state, setState, states, name_states = n
     const menu = (
         <Menu onClick={handleSelect}>
             {states.map((state, index) => (
-                <MenuItem key={state}>
+                <MenuItem key={state} style={{ fontSize: '16px' }}>
                     {name_states ? name_states[index] : state}
                 </MenuItem>
             ))}
@@ -25,7 +25,7 @@ export function CustomDropdown({ actual_state, setState, states, name_states = n
     );
 
     return (
-        <div style={{ padding: '50px', fontFamily: 'sans-serif' }}>
+        <div style={{ padding: padding, fontFamily: 'sans-serif' }}>
             <Dropdown overlay={menu} trigger={['click']}>
                 <button style={{
                     ...style

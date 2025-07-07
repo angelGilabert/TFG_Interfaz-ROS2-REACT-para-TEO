@@ -184,7 +184,7 @@ function Modelo_brazo({ realAnglesRightArm, desiredAnglesRightArm, changing_valu
 
 export function Teleop3d({ realAnglesRightArm }) {
     return (
-        <Canvas camera={{ zoom: 8, position: [10, 0, 0] }}>
+        <Canvas camera={{ zoom: 10, position: [10, 0, 7] }}>
             <ambientLight intensity={1} />
             <Modelo_brazo realAnglesRightArm={realAnglesRightArm} />
             <OrbitControls enableZoom={false} />

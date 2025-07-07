@@ -27,6 +27,10 @@ app.get('/mobile', (req, res) => {
     res.sendFile(path.join(__dirname, 'src', 'www', 'mobile.html'));
 });
 
+app.get('/teleoperation', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src', 'www', 'mobile.html'));
+});
+
 let clientSocket;
 let staffSocket;
 let nClients = 0;
